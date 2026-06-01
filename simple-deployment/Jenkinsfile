@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/divyachintha/linux-devops-labs.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'python3 --version'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh './deploy.sh'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh 'ps -ef | grep app.py'
+            }
+        }
+    }
+}
